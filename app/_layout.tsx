@@ -1,17 +1,16 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet } from 'react-native';
+import { Slot } from 'expo-router';
 import * as ExpoSplashScreen from 'expo-splash-screen';
-import { ThemeProvider } from './src/context/ThemeContext';
-import RootNavigator from './src/navigation/RootNavigator';
-import SplashScreenView from './src/screens/SplashScreen';
+import { ThemeProvider } from '@/src/context/ThemeContext';
+import SplashScreenView from '@/src/screens/SplashScreen';
 
 ExpoSplashScreen.preventAutoHideAsync();
 
-export default function App() {
+export default function RootLayout() {
   const [splashDone, setSplashDone] = useState(false);
 
   useEffect(() => {
@@ -22,9 +21,7 @@ export default function App() {
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
         <ThemeProvider>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
+          <Slot />
           {!splashDone && (
             <SplashScreenView onFinish={() => setSplashDone(true)} />
           )}
